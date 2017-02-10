@@ -13,5 +13,8 @@
   },
   "author": "AnastasiiaStavitskaya",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/nastyastavitskaya/frontendfirststeps#readme"
+  "homepage": "https://bitbucket.org/nastyastavitskaya/frontendfirststeps#readme",
+  "devDependencies": {
+    "hello-world-js": "0.0.1"
+  }
 }
