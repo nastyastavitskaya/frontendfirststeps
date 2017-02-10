@@ -15,6 +15,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/nastyastavitskaya/frontendfirststeps#readme",
   "devDependencies": {
+    "gulp": "^3.9.1",
     "hello-world-js": "0.0.1"
   }
 }
