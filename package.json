@@ -16,6 +16,8 @@
   "homepage": "https://bitbucket.org/nastyastavitskaya/frontendfirststeps#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.1.7",
     "hello-world-js": "0.0.1"
   }
 }
