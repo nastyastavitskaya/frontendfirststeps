@@ -35,3 +35,10 @@ gulp.task('build', function(){
               ['app-styles', 'app-scripts'],
               'index');
 });
+
+gulp.task('watch', function(){
+  gulp.watch(['src/styles/*.css', 'src/js/*.js', 'src/index.html'], function(event){
+    gulp.run('build');
+  });
+});
+
