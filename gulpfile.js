@@ -38,7 +38,11 @@ gulp.task('build', function(){
 
 gulp.task('watch', function(){
   gulp.watch(['src/styles/*.css', 'src/js/*.js', 'src/index.html'], function(event){
-    gulp.run('build');
+    gulp.run('app-styles', 'app-scripts', 'index');
   });
 });
 
+gulp.task('default', function(){
+  runSequence('build',
+              'watch');
+});
