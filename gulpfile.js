@@ -3,6 +3,8 @@ var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
 var uglify = require('gulp-uglify');
 var inject = require('gulp-inject');
+const del = require('del');
+var runSequence = require('run-sequence');
 
 gulp.task('app-styles', function(){
   return gulp.src('src/styles/*.css')
@@ -22,4 +24,14 @@ gulp.task('index', function(){
   return gulp.src('src/index.html')
     .pipe(inject(gulp.src(['build/styles/app.min.css', 'build/js/app.min.js'],  {read: false})))
     .pipe(gulp.dest('build/'));
+});
+
+gulp.task('clean', function(){
+  del('build/').then(console.log('Cleaned folder'));
+});
+
+gulp.task('build', function(){
+  runSequence('clean',
+              ['app-styles', 'app-scripts'],
+              'index');
 });

@@ -3,7 +3,6 @@ var searchContent = document.getElementById("searchContent");
 var aboutContent = document.getElementById("aboutContent");
 
 document.getElementById("home").addEventListener("click", function(){
-  // onMenuItemClick("homeContent"); ???
   homeContent.classList.add("hide");
   homeContent.classList.remove("active");
   searchContent.classList.add("hide");
