@@ -21,9 +21,7 @@
     "gulp-inject": "^4.2.0",
     "gulp-uglify": "^2.0.1",
     "hello-world-js": "0.0.1",
-    "run-sequence": "^1.2.2"
-  },
-  "dependencies": {
+    "run-sequence": "^1.2.2",
     "del": "^2.2.2"
   }
 }

@@ -1,10 +1,11 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var cssmin = require('gulp-cssmin');
-var uglify = require('gulp-uglify');
-var inject = require('gulp-inject');
 const del = require('del');
-var runSequence = require('run-sequence');
+var
+  gulp = require('gulp');
+  concat = require('gulp-concat');
+  cssmin = require('gulp-cssmin');
+  uglify = require('gulp-uglify');
+  inject = require('gulp-inject');
+  runSequence = require('run-sequence');
 
 gulp.task('app-styles', function(){
   return gulp.src('src/styles/*.css')
@@ -22,12 +23,12 @@ gulp.task('app-scripts', function(){
 
 gulp.task('index', function(){
   return gulp.src('src/index.html')
-    .pipe(inject(gulp.src(['build/styles/app.min.css', 'build/js/app.min.js'],  {read: false})))
+    .pipe(inject(gulp.src(['./build/styles/app.min.css', './build/js/app.min.js'],  {read: false})))
     .pipe(gulp.dest('build/'));
 });
 
 gulp.task('clean', function(){
-  del('build/').then(console.log('Cleaned folder'));
+  return del('build/').then(console.log('Cleaned folder'));
 });
 
 gulp.task('build', function(){
@@ -37,8 +38,14 @@ gulp.task('build', function(){
 });
 
 gulp.task('watch', function(){
-  gulp.watch(['src/styles/*.css', 'src/js/*.js', 'src/index.html'], function(event){
-    gulp.run('app-styles', 'app-scripts', 'index');
+  gulp.watch(['src/styles/*.css'], function(event){
+    gulp.run('app-styles');
+  });
+  gulp.watch(['src/js/*.js'], function(event){
+    gulp.run('app-scripts');
+  });
+  gulp.watch(['src/index.html'], function(event){
+    gulp.run('index');
   });
 });
 
