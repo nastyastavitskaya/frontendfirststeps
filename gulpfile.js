@@ -1,4 +1,3 @@
-const del = require('del');
 var
   gulp = require('gulp');
   concat = require('gulp-concat');
@@ -6,6 +5,7 @@ var
   uglify = require('gulp-uglify');
   inject = require('gulp-inject');
   runSequence = require('run-sequence');
+  del = require('del');
 
 gulp.task('app-styles', function(){
   return gulp.src('src/styles/*.css')
@@ -22,8 +22,9 @@ gulp.task('app-scripts', function(){
 });
 
 gulp.task('index', function(){
-  return gulp.src('src/index.html')
-    .pipe(inject(gulp.src(['./build/styles/app.min.css', './build/js/app.min.js'],  {read: false})))
+  var target = gulp.src('src/index.html');
+  var sources = gulp.src(['./build/styles/app.min.css', './build/js/app.min.js'],  {read: false})
+  return target.pipe(inject(sources))
     .pipe(gulp.dest('build/'));
 });
 
@@ -38,15 +39,9 @@ gulp.task('build', function(){
 });
 
 gulp.task('watch', function(){
-  gulp.watch(['src/styles/*.css'], function(event){
-    gulp.run('app-styles');
-  });
-  gulp.watch(['src/js/*.js'], function(event){
-    gulp.run('app-scripts');
-  });
-  gulp.watch(['src/index.html'], function(event){
-    gulp.run('index');
-  });
+  gulp.watch('src/styles/*.css', ['app-styles']);
+  gulp.watch('src/js/*.js', ['app-scripts']);
+  gulp.watch('src/index.html', ['index']);
 });
 
 gulp.task('default', function(){

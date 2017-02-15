@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- inject:css -->
-  <link rel="stylesheet" href="/build/styles/app.min.css">
-  <!-- endinject -->
   <ul class="menu">
-    <li id="home">Home</li>
+    <li id="home" class="active">Home</li>
     <li id="search">Search</li>
     <li id="about">About</li>
   </ul>
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/build/styles/app.min.css">
+  <!-- endinject -->
 </head>
 <body>
+  <div class="content">
+    <p id="homeContent">Hello world!</p>
+    <p id="searchContent" class="hide">Still not implemented...</p>
+    <p id="aboutContent" class="hide">My personal project to learn Front-end basics and technologies</p>
+  </div>
   <!-- inject:js -->
   <script src="/build/js/app.min.js"></script>
   <!-- endinject -->
-  <div class="content">
-    <div class="active">
-      <p id="homeContent">Hello world!</p>
-    </div>
-    <div class="hide">
-      <p id="searchContent">Still not implemented...</p>
-      <p id="aboutContent">My personal project to learn Front-end basics and technologies</p>
-    </div>
-  </div>
 </body>
 </html>
