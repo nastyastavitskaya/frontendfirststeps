@@ -23,8 +23,8 @@ gulp.task('app-scripts', function(){
 
 gulp.task('index', function(){
   var target = gulp.src('src/index.html');
-  var sources = gulp.src(['./build/styles/app.min.css', './build/js/app.min.js'],  {read: false})
-  return target.pipe(inject(sources))
+  var sources = gulp.src(['build/styles/app.min.css', 'build/js/app.min.js'], {read: false})
+  return target.pipe(inject(sources, {ignorePath: 'build', addRootSlash: false }))
     .pipe(gulp.dest('build/'));
 });
 

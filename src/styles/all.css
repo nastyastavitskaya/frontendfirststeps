@@ -3,6 +3,10 @@ head {
   font-size: 20px;
 }
 
+ul {
+  width: 250px;
+}
+
 p {
   font-size: 14px;
 }
