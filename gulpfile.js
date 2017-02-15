@@ -48,3 +48,10 @@ gulp.task('default', function(){
   runSequence('build',
               'watch');
 });
+
+gulp.task('vendor-styles', function(){
+  return gulp.src('node_modules/bootstrap/dist/css/*.css')
+    .pipe(cssmin())
+    .pipe(concat('vendors.min.css'))
+    .pipe(gulp.dest('build/styles'));
+});
