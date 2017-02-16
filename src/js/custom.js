@@ -1,36 +1,32 @@
-var homeContent = document.getElementById("homeContent");
-var searchContent = document.getElementById("searchContent");
-var aboutContent = document.getElementById("aboutContent");
+$("#home").click(function(){
+  $("#homeContent").addClass("hide");
+  $("#home").removeClass("active");
+  $("#searchContent").addClass("hide");
+  $("#search").removeClass("active");
+  $("#aboutContent").addClass("hide");
+  $("#about").removeClass("active");
+  $("#homeContent").removeClass("hide");
+  $("#home").addClass("active");
+});
 
-document.getElementById("home").addEventListener("click", function(){
-  homeContent.classList.add("hide");
-  document.getElementById("home").classList.remove("active");
-  searchContent.classList.add("hide");
-  document.getElementById("search").classList.remove("active");
-  aboutContent.classList.add("hide");
-  document.getElementById("about").classList.remove("active");
-  homeContent.classList.remove("hide");
-  document.getElementById("home").classList.add("active");
-})
+$("#search").click(function(){
+  $("#homeContent").addClass("hide");
+  $("#home").removeClass("active");
+  $("#searchContent").addClass("hide");
+  $("#search").removeClass("active");
+  $("#aboutContent").addClass("hide");
+  $("#about").removeClass("active");
+  $("#searchContent").removeClass("hide");
+  $("#search").addClass("active");
+});
 
-document.getElementById("search").addEventListener("click", function(){
-  homeContent.classList.add("hide");
-  document.getElementById("home").classList.remove("active");
-  searchContent.classList.add("hide");
-  document.getElementById("search").classList.remove("active");
-  aboutContent.classList.add("hide");
-  document.getElementById("about").classList.remove("active");
-  searchContent.classList.remove("hide");
-  document.getElementById("search").classList.add("active");
-})
-
-document.getElementById("about").addEventListener("click", function(){
-  homeContent.classList.add("hide");
-  document.getElementById("home").classList.remove("active");
-  searchContent.classList.add("hide");
-  document.getElementById("search").classList.remove("active");
-  aboutContent.classList.add("hide");
-  document.getElementById("about").classList.remove("active");
-  aboutContent.classList.remove("hide");
-  document.getElementById("about").classList.add("active");
-})
+$("#about").click(function(){
+  $("#homeContent").addClass("hide");
+  $("#home").removeClass("active");
+  $("#searchContent").addClass("hide");
+  $("#search").removeClass("active");
+  $("#aboutContent").addClass("hide");
+  $("#about").removeClass("active");
+  $("#aboutContent").removeClass("hide");
+  $("#about").addClass("active");
+});
