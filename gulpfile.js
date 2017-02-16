@@ -55,3 +55,10 @@ gulp.task('vendor-styles', function(){
     .pipe(concat('vendors.min.css'))
     .pipe(gulp.dest('build/styles'));
 });
+
+gulp.task('vendor-scripts', function(){
+  return gulp.src(['node_modules/jquery/dist/*.js', 'node_modules/bootstrap/dist/js/*.js'])
+    .pipe(uglify())
+    .pipe(concat('vendors.min.js'))
+    .pipe(gulp.dest('build/js'));
+})
