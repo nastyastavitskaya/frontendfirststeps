@@ -1,32 +1,22 @@
-$("#home").click(function(){
-  $("#homeContent").addClass("hide");
-  $("#home").removeClass("active");
-  $("#searchContent").addClass("hide");
-  $("#search").removeClass("active");
-  $("#aboutContent").addClass("hide");
-  $("#about").removeClass("active");
-  $("#homeContent").removeClass("hide");
-  $("#home").addClass("active");
+var tokenList = ['#home', '#search', '#about'];
+var activeIndex = 0;
+
+function onMenuItemClick(newIndex){
+  $(tokenList[activeIndex]).removeClass("active");
+  $(tokenList[activeIndex] + "Content").addClass("hide");
+  $(tokenList[newIndex]).addClass("active");
+  $(tokenList[newIndex] + "Content").removeClass("hide");
+  activeIndex = newIndex;
+}
+
+$(tokenList[0]).click(function(){
+  onMenuItemClick(0);
 });
 
-$("#search").click(function(){
-  $("#homeContent").addClass("hide");
-  $("#home").removeClass("active");
-  $("#searchContent").addClass("hide");
-  $("#search").removeClass("active");
-  $("#aboutContent").addClass("hide");
-  $("#about").removeClass("active");
-  $("#searchContent").removeClass("hide");
-  $("#search").addClass("active");
+$(tokenList[1]).click(function(){
+  onMenuItemClick(1);
 });
 
-$("#about").click(function(){
-  $("#homeContent").addClass("hide");
-  $("#home").removeClass("active");
-  $("#searchContent").addClass("hide");
-  $("#search").removeClass("active");
-  $("#aboutContent").addClass("hide");
-  $("#about").removeClass("active");
-  $("#aboutContent").removeClass("hide");
-  $("#about").addClass("active");
+$(tokenList[2]).click(function(){
+  onMenuItemClick(2);
 });
