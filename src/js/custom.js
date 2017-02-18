@@ -1,36 +1,22 @@
-var homeContent = document.getElementById("homeContent");
-var searchContent = document.getElementById("searchContent");
-var aboutContent = document.getElementById("aboutContent");
+var tokenList = ['#home', '#search', '#about'];
+var activeIndex = 0;
 
-document.getElementById("home").addEventListener("click", function(){
-  homeContent.classList.add("hide");
-  document.getElementById("home").classList.remove("active");
-  searchContent.classList.add("hide");
-  document.getElementById("search").classList.remove("active");
-  aboutContent.classList.add("hide");
-  document.getElementById("about").classList.remove("active");
-  homeContent.classList.remove("hide");
-  document.getElementById("home").classList.add("active");
-})
+function onMenuItemClick(newIndex){
+  $(tokenList[activeIndex]).removeClass("active");
+  $(tokenList[activeIndex] + "Content").addClass("hide");
+  $(tokenList[newIndex]).addClass("active");
+  $(tokenList[newIndex] + "Content").removeClass("hide");
+  activeIndex = newIndex;
+}
 
-document.getElementById("search").addEventListener("click", function(){
-  homeContent.classList.add("hide");
-  document.getElementById("home").classList.remove("active");
-  searchContent.classList.add("hide");
-  document.getElementById("search").classList.remove("active");
-  aboutContent.classList.add("hide");
-  document.getElementById("about").classList.remove("active");
-  searchContent.classList.remove("hide");
-  document.getElementById("search").classList.add("active");
-})
+$(tokenList[0]).click(function(){
+  onMenuItemClick(0);
+});
 
-document.getElementById("about").addEventListener("click", function(){
-  homeContent.classList.add("hide");
-  document.getElementById("home").classList.remove("active");
-  searchContent.classList.add("hide");
-  document.getElementById("search").classList.remove("active");
-  aboutContent.classList.add("hide");
-  document.getElementById("about").classList.remove("active");
-  aboutContent.classList.remove("hide");
-  document.getElementById("about").classList.add("active");
-})
+$(tokenList[1]).click(function(){
+  onMenuItemClick(1);
+});
+
+$(tokenList[2]).click(function(){
+  onMenuItemClick(2);
+});

@@ -21,10 +21,24 @@ gulp.task('app-scripts', function(){
     .pipe(gulp.dest('build/js'));
 });
 
+gulp.task('vendor-styles', function(){
+  return gulp.src('node_modules/bootstrap/dist/css/*.css')
+    .pipe(cssmin())
+    .pipe(concat('vendors.min.css'))
+    .pipe(gulp.dest('build/styles'));
+});
+
+gulp.task('vendor-scripts', function(){
+  return gulp.src(['node_modules/jquery/dist/jquery.js', 'node_modules/bootstrap/dist/js/bootstrap.js'])
+    .pipe(uglify())
+    .pipe(concat('vendors.min.js'))
+    .pipe(gulp.dest('build/js'));
+})
+
 gulp.task('index', function(){
-  var target = gulp.src('src/index.html');
-  var sources = gulp.src(['build/styles/app.min.css', 'build/js/app.min.js'], {read: false})
-  return target.pipe(inject(sources, {ignorePath: 'build', addRootSlash: false }))
+  gulp.src('src/index.html')
+    .pipe(inject(gulp.src(['build/styles/*.css', 'build/js/app.min.js'], {read: false}), {ignorePath: 'build', addRootSlash: false }))
+    .pipe(inject(gulp.src('build/js/vendors.min.js', {read: false}), {starttag: '<!-- inject:head:{{ext}} -->', ignorePath: 'build', addRootSlash: false }))
     .pipe(gulp.dest('build/'));
 });
 
@@ -34,7 +48,7 @@ gulp.task('clean', function(){
 
 gulp.task('build', function(){
   runSequence('clean',
-              ['app-styles', 'app-scripts'],
+              ['app-styles', 'app-scripts', 'vendor-styles', 'vendor-scripts'],
               'index');
 });
 
