@@ -15,14 +15,15 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/nastyastavitskaya/frontendfirststeps#readme",
   "devDependencies": {
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-cssmin": "^0.1.7",
     "gulp-inject": "^4.2.0",
+    "gulp-sass": "^3.1.0",
     "gulp-uglify": "^2.0.1",
     "hello-world-js": "0.0.1",
-    "run-sequence": "^1.2.2",
-    "del": "^2.2.2"
+    "run-sequence": "^1.2.2"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",

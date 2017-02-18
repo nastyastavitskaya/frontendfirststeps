@@ -6,10 +6,11 @@ var
   inject = require('gulp-inject');
   runSequence = require('run-sequence');
   del = require('del');
+  sass = require('gulp-sass');
 
 gulp.task('app-styles', function(){
-  return gulp.src('src/styles/*.css')
-    .pipe(cssmin())
+  return gulp.src('src/styles/*.scss')
+    .pipe(sass())
     .pipe(concat('app.min.css'))
     .pipe(gulp.dest('build/styles'));
 });
@@ -53,7 +54,7 @@ gulp.task('build', function(){
 });
 
 gulp.task('watch', function(){
-  gulp.watch('src/styles/*.css', ['app-styles']);
+  gulp.watch('src/styles/*.scss', ['app-styles']);
   gulp.watch('src/js/*.js', ['app-scripts']);
   gulp.watch('src/index.html', ['index']);
 });
