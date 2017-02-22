@@ -1,17 +1,16 @@
-export var tokenList = ['#home', '#search', '#about'];
+export var tokenList = ['home', 'search', 'about'];
 
 export var elements = {
   "home": {
     menu: $("#home"),
-    content: $("homeContent")
+    content: $("#homeContent")
   },
   "search": {
     menu: $("#search"),
-    content: $("searchContent")
+    content: $("#searchContent")
   },
   "about": {
     menu: $("#about"),
-    content: $("aboutContent")
+    content: $("#aboutContent")
   }
 }
-// export {tokenList};

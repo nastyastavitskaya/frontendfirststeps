@@ -1,19 +1,14 @@
-import onMenuItemClick from 'handler';
+import { tokenList, elements } from './constants';
+import { default as onMenuItemClick } from './handler';
 
-$(tokenList[0]).click(function(){
+(elements[tokenList[0]].menu).click(function(){
   onMenuItemClick(0);
 });
 
-$(tokenList[1]).click(function(){
+(elements[tokenList[1]].menu).click(function(){
   onMenuItemClick(1);
 });
 
-$(tokenList[2]).click(function(){
+(elements[tokenList[2]].menu).click(function(){
   onMenuItemClick(2);
 });
-
-// for(i = 0; i < 3; i++) {
-//   $(tokenList[i]).click(function(){
-//     onMenuItemClick(i);
-//   });
-// };

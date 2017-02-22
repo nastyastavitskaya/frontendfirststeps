@@ -7,6 +7,11 @@ var
   runSequence = require('run-sequence');
   del = require('del');
   sass = require('gulp-sass');
+  babelify = require('babelify');
+  browserify = require('browserify');
+  buffer = require('vinyl-buffer');
+  source = require('vinyl-source-stream');
+  sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('app-styles', function(){
   return gulp.src('src/styles/*.scss')
@@ -16,9 +21,14 @@ gulp.task('app-styles', function(){
 });
 
 gulp.task('app-scripts', function(){
-  return gulp.src('src/js/*.js')
+  return browserify('src/js/app.js')
+    .transform(babelify)
+    .bundle()
+    .pipe(source('app.min.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(uglify())
-    .pipe(concat('app.min.js'))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('build/js'));
 });
 

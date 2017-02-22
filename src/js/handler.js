@@ -1,4 +1,4 @@
-import { tokenList, elements } from 'constants';
+import { tokenList, elements } from './constants';
 
 var activeIndex = 0;
 

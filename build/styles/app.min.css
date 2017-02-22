@@ -1,18 +1,10 @@
-head {
-  text-align: center;
-  font-size: 22px;
-  background-color: #008080; }
-
-ul {
-  width: 250px; }
-
 p {
-  font-size: 14px;
+  font-size: 17px;
   font-family: Helvetica, Arial, sans-serif; }
 
 .hide {
   display: none; }
 
 .active {
-  border-bottom: 2px solid; }
+  border-bottom: 2px solid #009688; }
 
