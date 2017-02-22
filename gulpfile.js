@@ -21,13 +21,16 @@ gulp.task('app-styles', function(){
 });
 
 gulp.task('app-scripts', function(){
-  return browserify('src/js/app.js')
-    .transform(babelify)
-    .bundle()
+  bundler = browserify({
+    entries: ['src/js/app.js'],
+    debug: true
+  }).transform(babelify)
+
+  return bundler.bundle()
     .pipe(source('app.min.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(uglify())
+      .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('build/js'));
 });
