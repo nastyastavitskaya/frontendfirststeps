@@ -12,3 +12,14 @@ import { default as onMenuItemClick } from './handler';
 (elements[tokenList[2]].menu).click(function(){
   onMenuItemClick(2);
 });
+
+$.ajax({
+  url: 'api/test',
+  // error: function() {
+  //   console.log("An error has occured");
+  // },
+  // success: function() {
+  //   console.log("Hello World!");
+  // },
+  type: 'GET'
+})

@@ -13,6 +13,7 @@ var
   source = require('vinyl-source-stream');
   sourcemaps = require('gulp-sourcemaps');
   connect = require('gulp-connect');
+  proxy = require('http-proxy-middleware');
 
 gulp.task('app-styles', function(){
   return gulp.src('src/styles/*.scss')
@@ -80,11 +81,21 @@ gulp.task('connect', function(){
   connect.server({
     root: './build',
     port: 5005,
-    livereload: true
+    livereload: true,
+    middleware: function(connect, opt){
+      return [
+        proxy('/api', {
+          target: 'http://localhost:3003',
+          changeOrigin: true,
+          ws: true
+        })
+      ]
+    }
   });
 });
 
 gulp.task('default', function(){
+  require('./server.js');
   runSequence('build',
               ['connect', 'watch']);
 });
