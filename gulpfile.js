@@ -12,6 +12,7 @@ var
   buffer = require('vinyl-buffer');
   source = require('vinyl-source-stream');
   sourcemaps = require('gulp-sourcemaps');
+  connect = require('gulp-connect');
 
 gulp.task('app-styles', function(){
   return gulp.src('src/styles/*.scss')
@@ -72,7 +73,14 @@ gulp.task('watch', function(){
   gulp.watch('src/index.html', ['index']);
 });
 
+gulp.task('connect', function(){
+  connect.server({
+    root: './build',
+    port: 5005
+  });
+});
+
 gulp.task('default', function(){
   runSequence('build',
-              'watch');
+              ['watch', 'connect']);
 });
