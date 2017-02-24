@@ -1,2 +1,10 @@
-head{text-align:center;font-size:20px}ul{width:250px}p{font-size:14px}
-.hide{display:none}.active{border-bottom:2px solid}
+p {
+  font-size: 17px;
+  font-family: Helvetica, Arial, sans-serif; }
+
+.hide {
+  display: none; }
+
+.active {
+  border-bottom: 2px solid #009688; }
+

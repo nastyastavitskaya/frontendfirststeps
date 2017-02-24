@@ -6,18 +6,32 @@ var
   inject = require('gulp-inject');
   runSequence = require('run-sequence');
   del = require('del');
+  sass = require('gulp-sass');
+  babelify = require('babelify');
+  browserify = require('browserify');
+  buffer = require('vinyl-buffer');
+  source = require('vinyl-source-stream');
+  sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('app-styles', function(){
-  return gulp.src('src/styles/*.css')
-    .pipe(cssmin())
+  return gulp.src('src/styles/*.scss')
+    .pipe(sass())
     .pipe(concat('app.min.css'))
     .pipe(gulp.dest('build/styles'));
 });
 
 gulp.task('app-scripts', function(){
-  return gulp.src('src/js/*.js')
-    .pipe(uglify())
-    .pipe(concat('app.min.js'))
+  bundler = browserify({
+    entries: ['src/js/app.js'],
+    debug: true
+  }).transform(babelify)
+
+  return bundler.bundle()
+    .pipe(source('app.min.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('build/js'));
 });
 
@@ -53,7 +67,7 @@ gulp.task('build', function(){
 });
 
 gulp.task('watch', function(){
-  gulp.watch('src/styles/*.css', ['app-styles']);
+  gulp.watch('src/styles/*.scss', ['app-styles']);
   gulp.watch('src/js/*.js', ['app-scripts']);
   gulp.watch('src/index.html', ['index']);
 });
