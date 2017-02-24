@@ -18,7 +18,8 @@ gulp.task('app-styles', function(){
   return gulp.src('src/styles/*.scss')
     .pipe(sass())
     .pipe(concat('app.min.css'))
-    .pipe(gulp.dest('build/styles'));
+    .pipe(gulp.dest('build/styles'))
+    .pipe(connect.reload());
 });
 
 gulp.task('app-scripts', function(){
@@ -33,7 +34,8 @@ gulp.task('app-scripts', function(){
     .pipe(sourcemaps.init({ loadMaps: true }))
       .pipe(uglify())
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest('build/js'))
+    .pipe(connect.reload());
 });
 
 gulp.task('vendor-styles', function(){
@@ -54,7 +56,8 @@ gulp.task('index', function(){
   gulp.src('src/index.html')
     .pipe(inject(gulp.src(['build/styles/*.css', 'build/js/app.min.js'], {read: false}), {ignorePath: 'build', addRootSlash: false }))
     .pipe(inject(gulp.src('build/js/vendors.min.js', {read: false}), {starttag: '<!-- inject:head:{{ext}} -->', ignorePath: 'build', addRootSlash: false }))
-    .pipe(gulp.dest('build/'));
+    .pipe(gulp.dest('build/'))
+    .pipe(connect.reload());
 });
 
 gulp.task('clean', function(){
@@ -76,11 +79,12 @@ gulp.task('watch', function(){
 gulp.task('connect', function(){
   connect.server({
     root: './build',
-    port: 5005
+    port: 5005,
+    livereload: true
   });
 });
 
 gulp.task('default', function(){
   runSequence('build',
-              ['watch', 'connect']);
+              ['connect', 'watch']);
 });
