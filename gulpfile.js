@@ -43,14 +43,16 @@ gulp.task('vendor-styles', function(){
   return gulp.src('node_modules/bootstrap/dist/css/*.css')
     .pipe(cssmin())
     .pipe(concat('vendors.min.css'))
-    .pipe(gulp.dest('build/styles'));
+    .pipe(gulp.dest('build/styles'))
+    .pipe(connect.reload());
 });
 
 gulp.task('vendor-scripts', function(){
   return gulp.src(['node_modules/jquery/dist/jquery.js', 'node_modules/bootstrap/dist/js/bootstrap.js'])
     .pipe(uglify())
     .pipe(concat('vendors.min.js'))
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest('build/js'))
+    .pipe(connect.reload());
 })
 
 gulp.task('index', function(){
