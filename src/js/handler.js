@@ -18,7 +18,3 @@ export default function handler(newIndex){
   }
   runAjax('/api/' + tokenList[newIndex], successHandler);
 }
-
-
-
-
