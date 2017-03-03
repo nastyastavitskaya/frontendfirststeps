@@ -21,18 +21,22 @@
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.0.0",
     "gulp-cssmin": "^0.1.7",
     "gulp-inject": "^4.2.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-uglify": "^2.0.1",
     "hello-world-js": "0.0.1",
+    "http-proxy-middleware": "^0.17.3",
     "run-sequence": "^1.2.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "connect": "^3.6.0",
+    "express": "^4.14.1",
     "jquery": "^3.1.1"
   }
 }
