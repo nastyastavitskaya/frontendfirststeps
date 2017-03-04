@@ -15,6 +15,7 @@ var
   connect = require('gulp-connect');
   proxy = require('http-proxy-middleware');
   minimist = require('minimist');
+  gulpif = require('gulp-if');
   arguments = {
     string: 'env',
     default: { env: process.env.NODE_ENV || 'production' }
@@ -23,8 +24,16 @@ var
 
 gulp.task('app-styles', function(){
   return gulp.src('src/styles/*.scss')
-    .pipe(sass())
+    .pipe(gulpif(options.env === 'production', sass()))
     .pipe(concat('app.min.css'))
+    .pipe(gulp.dest('build/styles'))
+    .pipe(connect.reload());
+});
+
+gulp.task('vendor-styles', function(){
+  return gulp.src('node_modules/bootstrap/dist/css/*.css')
+    .pipe(gulpif(options.env === 'production', cssmin()))
+    .pipe(concat('vendors.min.css'))
     .pipe(gulp.dest('build/styles'))
     .pipe(connect.reload());
 });
@@ -39,23 +48,15 @@ gulp.task('app-scripts', function(){
     .pipe(source('app.min.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(uglify())
+      .pipe(gulpif(options.env === 'production', uglify()))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('build/js'))
     .pipe(connect.reload());
 });
 
-gulp.task('vendor-styles', function(){
-  return gulp.src('node_modules/bootstrap/dist/css/*.css')
-    .pipe(cssmin())
-    .pipe(concat('vendors.min.css'))
-    .pipe(gulp.dest('build/styles'))
-    .pipe(connect.reload());
-});
-
 gulp.task('vendor-scripts', function(){
   return gulp.src(['node_modules/jquery/dist/jquery.js', 'node_modules/bootstrap/dist/js/bootstrap.js'])
-    .pipe(uglify())
+    .pipe(gulpif(options.env === 'production', uglify()))
     .pipe(concat('vendors.min.js'))
     .pipe(gulp.dest('build/js'))
     .pipe(connect.reload());
