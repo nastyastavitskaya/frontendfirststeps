@@ -14,6 +14,12 @@ var
   sourcemaps = require('gulp-sourcemaps');
   connect = require('gulp-connect');
   proxy = require('http-proxy-middleware');
+  minimist = require('minimist');
+  arguments = {
+    string: 'env',
+    default: { env: process.env.NODE_ENV || 'production' }
+  };
+  options = minimist(process.argv.slice(2), arguments);
 
 gulp.task('app-styles', function(){
   return gulp.src('src/styles/*.scss')

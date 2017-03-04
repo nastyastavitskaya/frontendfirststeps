@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "hello": "node hello.js"
+    "hello": "node hello.js",
+    "start": "gulp --development",
+    "build": "gulp --production"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,7 @@
     "hello-world-js": "0.0.1",
     "http-proxy-middleware": "^0.17.3",
     "run-sequence": "^1.2.2",
+    "minimist": "^1.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
