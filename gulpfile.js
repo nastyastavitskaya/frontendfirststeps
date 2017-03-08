@@ -1,110 +1,1 @@
-var
-  gulp = require('gulp');
-  concat = require('gulp-concat');
-  cssmin = require('gulp-cssmin');
-  uglify = require('gulp-uglify');
-  inject = require('gulp-inject');
-  runSequence = require('run-sequence');
-  del = require('del');
-  sass = require('gulp-sass');
-  babelify = require('babelify');
-  browserify = require('browserify');
-  buffer = require('vinyl-buffer');
-  source = require('vinyl-source-stream');
-  sourcemaps = require('gulp-sourcemaps');
-  connect = require('gulp-connect');
-  proxy = require('http-proxy-middleware');
-  minimist = require('minimist');
-  gulpif = require('gulp-if');
-  arguments = {
-    string: 'env',
-    default: { env: process.env.NODE_ENV || 'production' }
-  };
-  options = minimist(process.argv.slice(2), arguments);
-
-gulp.task('app-styles', function(){
-  return gulp.src('src/styles/*.scss')
-    .pipe(gulpif(options.env === 'production', sass()))
-    .pipe(concat('app.min.css'))
-    .pipe(gulp.dest('build/styles'))
-    .pipe(connect.reload());
-});
-
-gulp.task('vendor-styles', function(){
-  return gulp.src('node_modules/bootstrap/dist/css/*.css')
-    .pipe(gulpif(options.env === 'production', cssmin()))
-    .pipe(concat('vendors.min.css'))
-    .pipe(gulp.dest('build/styles'))
-    .pipe(connect.reload());
-});
-
-gulp.task('app-scripts', function(){
-  bundler = browserify({
-    entries: ['src/js/app.js'],
-    debug: true
-  }).transform(babelify)
-
-  return bundler.bundle()
-    .pipe(source('app.min.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(gulpif(options.env === 'production', uglify()))
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('build/js'))
-    .pipe(connect.reload());
-});
-
-gulp.task('vendor-scripts', function(){
-  return gulp.src(['node_modules/jquery/dist/jquery.js', 'node_modules/bootstrap/dist/js/bootstrap.js'])
-    .pipe(gulpif(options.env === 'production', uglify()))
-    .pipe(concat('vendors.min.js'))
-    .pipe(gulp.dest('build/js'))
-    .pipe(connect.reload());
-})
-
-gulp.task('index', function(){
-  gulp.src('src/index.html')
-    .pipe(inject(gulp.src(['build/styles/*.css', 'build/js/app.min.js'], {read: false}), {ignorePath: 'build', addRootSlash: false }))
-    .pipe(inject(gulp.src('build/js/vendors.min.js', {read: false}), {starttag: '<!-- inject:head:{{ext}} -->', ignorePath: 'build', addRootSlash: false }))
-    .pipe(gulp.dest('build/'))
-    .pipe(connect.reload());
-});
-
-gulp.task('clean', function(){
-  return del('build/').then(console.log('Cleaned folder'));
-});
-
-gulp.task('build', function(){
-  runSequence('clean',
-              ['app-styles', 'app-scripts', 'vendor-styles', 'vendor-scripts'],
-              'index');
-});
-
-gulp.task('watch', function(){
-  gulp.watch('src/styles/*.scss', ['app-styles']);
-  gulp.watch('src/js/*.js', ['app-scripts']);
-  gulp.watch('src/index.html', ['index']);
-});
-
-gulp.task('connect', function(){
-  connect.server({
-    root: './build',
-    port: 5005,
-    livereload: true,
-    middleware: function(connect, opt){
-      return [
-        proxy('/api', {
-          target: 'http://localhost:3003',
-          changeOrigin: true,
-          ws: true
-        })
-      ]
-    }
-  });
-});
-
-gulp.task('default', function(){
-  require('./server.js');
-  runSequence('build',
-              ['connect', 'watch']);
-});
+var  gulp = require('gulp');  concat = require('gulp-concat');  cssmin = require('gulp-cssmin');  uglify = require('gulp-uglify');  inject = require('gulp-inject');  runSequence = require('run-sequence');  del = require('del');  sass = require('gulp-sass');  babelify = require('babelify');  browserify = require('browserify');  buffer = require('vinyl-buffer');  source = require('vinyl-source-stream');  sourcemaps = require('gulp-sourcemaps');  connect = require('gulp-connect');  proxy = require('http-proxy-middleware');  parseArgs = require('minimist');  gulpif = require('gulp-if');  argv = parseArgs(process.argv.slice(2));    //argv.production = true if "gulp [task] --production"    //argv.development = true if "gulp [task] --development"gulp.task('app-styles', function(){  return gulp.src('src/styles/*.scss')    .pipe(gulpif(argv.production, sass()))    .pipe(gulpif(argv.production, concat('app.min.css')))    .pipe(gulp.dest(argv.production ? 'build/styles' : 'temp/styles'))    .pipe(connect.reload());});gulp.task('vendor-styles', function(){  return gulp.src('node_modules/bootstrap/dist/css/*.css')    .pipe(gulpif(argv.production, cssmin()))    .pipe(gulpif(argv.production, concat('vendors.min.css')))    .pipe(gulp.dest(argv.production ? 'build/styles' : 'temp/styles'))    .pipe(connect.reload());});gulp.task('app-scripts', function(){  bundler = browserify({    entries: ['src/js/app.js'],    debug: true  }).transform(babelify)  return bundler.bundle()    .pipe(source(argv.production ? 'app.min.js' : 'app.js'))    .pipe(buffer())    .pipe(sourcemaps.init({ loadMaps: true }))      .pipe(gulpif(argv.production, uglify()))    .pipe(sourcemaps.write('./'))    .pipe(gulp.dest(argv.production ? 'build/js' : 'temp/js'))    .pipe(connect.reload());});gulp.task('vendor-scripts', function(){  return gulp.src(['node_modules/jquery/dist/jquery.js', 'node_modules/bootstrap/dist/js/bootstrap.js'])    .pipe(gulpif(argv.production, uglify()))    .pipe(gulpif(argv.production, concat('vendors.min.js')))    .pipe(gulp.dest(argv.production ? 'build/js' : 'temp/js'))    .pipe(connect.reload());})gulp.task('index', function(){  gulp.src('src/index.html')    .pipe(inject(gulp.src(argv.production ? ['build/styles/*.css', 'build/js/app.min.js'] : ['temp/styles/*.css', 'temp/js/app.js'], {read: false}), {ignorePath: ['build', 'temp'], addRootSlash: false }))    .pipe(inject(gulp.src(argv.production ? 'build/js/vendors.min.js' : ['temp/js/bootstrap.js', 'temp/js/jquery.js'], {read: false}), {starttag: '<!-- inject:head:{{ext}} -->', ignorePath: ['build', 'temp'], addRootSlash: false }))    .pipe(gulp.dest(argv.production ? 'build/' : 'temp/'))    .pipe(connect.reload());});gulp.task('clean', function(){  return del(argv.production ? 'build/' : './temp').then(console.log('Cleaned folder'));});gulp.task('build', function(){  runSequence('clean',              ['app-styles', 'app-scripts', 'vendor-styles', 'vendor-scripts'],              'index');});gulp.task('watch', function(){  gulp.watch('src/styles/*.scss', ['app-styles']);  gulp.watch('src/js/*.js', ['app-scripts']);  gulp.watch('src/index.html', ['index']);});gulp.task('connect', function(){  connect.server({    root: argv.production ? './build' : './temp',    port: 5005,    livereload: true,    middleware: function(connect, opt){      return [        proxy('/api', {          target: 'http://localhost:3003',          changeOrigin: true,          ws: true        })      ]    }  });});gulp.task('default', function(){  require('./server.js');  runSequence('build',              ['connect', 'watch']);});
