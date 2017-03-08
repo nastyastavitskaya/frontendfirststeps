@@ -1,0 +1,93 @@
+{
+  "development": {
+    "appStyles": {
+      "minify": false,
+      "concat": false,
+      "dest": "./temp/styles",
+      "sources": "src/styles/*.scss"
+    },
+    "vendorStyles": {
+      "minify": false,
+      "concat": false,
+      "dest": "./temp/styles",
+      "sources": "node_modules/bootstrap/dist/css/*.css"
+    },
+    "appScripts": {
+      "sources": "app.js",
+      "minify": false,
+      "dest": "./temp/js"
+    },
+    "vendorScripts": {
+      "minify": false,
+      "concat": false,
+      "dest": "./temp/js",
+      "sources": [
+        "node_modules/jquery/dist/jquery.js",
+        "node_modules/bootstrap/dist/js/bootstrap.js"
+      ]
+    },
+    "index": {
+      "sources": [
+        "temp/styles/*.css, {read: false}, {ignorePath: 'temp', addRootSlash: false }",
+        "temp/js/app.js, {read: false}, {ignorePath: 'temp', addRootSlash: false }"
+      ],
+      "vendorSources": [
+        "temp/js/bootstrap.js, {read: false}), {starttag: '<!-- inject:head:{{ext}} -->', ignorePath: 'temp', addRootSlash: false }",
+        "temp/js/jquery.js, {read: false}), {starttag: '<!-- inject:head:{{ext}} -->', ignorePath: 'temp', addRootSlash: false }"
+      ],
+      "dest": "./temp"
+    },
+    "clean": {
+      "sources": "./temp"
+    },
+    "connect": {
+      "sources": "./temp"
+    }
+  },
+  "production": {
+    "appStyles": {
+      "minify": true,
+      "concat": true,
+      "output": "app.min.css",
+      "dest": "./build/styles",
+      "sources": "src/styles/*.scss"
+    },
+    "vendorStyles": {
+      "minify": true,
+      "concat": true,
+      "output": "vendors.min.css",
+      "dest": ".build/styles",
+      "sources": "node_modules/bootstrap/dist/css/*.css"
+    },
+    "appScripts": {
+      "sources": "app.min.js",
+      "minify": true,
+      "dest": "./build/js"
+    },
+    "vendorScripts": {
+      "minify": true,
+      "concat": true,
+      "dest": "./build.js",
+      "sources": [
+        "node_modules/jquery/dist/jquery.js",
+        "node_modules/bootstrap/dist/js/bootstrap.js"
+      ]
+    },
+    "index": {
+      "sources": [
+        "build/styles/*.css, {read: false}, {ignorePath: 'build', addRootSlash: false }",
+        "build/js/app.min.js, {read: false}, {ignorePath: 'build', addRootSlash: false }"
+      ],
+      "vendorSources": [
+        "build/js/vendors.min.js, {read: false}), {starttag: '<!-- inject:head:{{ext}} -->', ignorePath: 'build', addRootSlash: false }"
+      ],
+      "dest": "./build"
+    },
+    "clean": {
+      "sources": "./build"
+    },
+    "connect": {
+      "sources": "./build"
+    }
+  }
+}
