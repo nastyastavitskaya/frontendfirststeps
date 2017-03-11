@@ -3,16 +3,19 @@
     "appStyles": {
       "minify": false,
       "concat": false,
-      "output": "./temp/styles/*scss",
+      "output": "app.css",
       "dest": "./temp/styles",
       "sources": "src/styles/*.scss"
     },
     "vendorStyles": {
       "minify": false,
       "concat": false,
-      "output": "./temp/styles/*js",
+      "output": "./temp/styles/*css",
       "dest": "./temp/styles",
-      "sources": "node_modules/bootstrap/dist/css/*.css"
+      "sources": [
+        "node_modules/bootstrap/dist/css/bootstrap-theme.css",
+        "node_modules/bootstrap/dist/css/bootstrap.css"
+      ]
     },
     "appScripts": {
       "entriesSources": "src/js/app.js",
@@ -37,8 +40,8 @@
         "temp/js/app.js"
       ],
       "vendorSources": [
-        "temp/js/bootstrap.js",
-        "temp/js/jquery.js"
+        "temp/js/jquery.js",
+        "temp/js/bootstrap.js"
       ],
       "dest": "./temp"
     },
@@ -67,7 +70,10 @@
       "concat": true,
       "output": "vendors.min.css",
       "dest": "./build/styles",
-      "sources": "node_modules/bootstrap/dist/css/*.css"
+      "sources": [
+        "node_modules/bootstrap/dist/css/bootstrap-theme.css",
+        "node_modules/bootstrap/dist/css/bootstrap.css"
+      ]
     },
     "appScripts": {
       "entriesSources": "src/js/app.js",
