@@ -1,0 +1,117 @@
+{
+  "development": {
+    "appStyles": {
+      "minify": false,
+      "concat": false,
+      "output": "app.css",
+      "dest": "./temp/styles",
+      "sources": "src/styles/*.scss"
+    },
+    "vendorStyles": {
+      "minify": false,
+      "concat": false,
+      "output": "./temp/styles/*css",
+      "dest": "./temp/styles",
+      "sources": [
+        "node_modules/bootstrap/dist/css/bootstrap-theme.css",
+        "node_modules/bootstrap/dist/css/bootstrap.css"
+      ]
+    },
+    "appScripts": {
+      "entriesSources": "src/js/app.js",
+      "sources": "app.js",
+      "minify": false,
+      "dest": "./temp/js"
+    },
+    "vendorScripts": {
+      "minify": false,
+      "concat": false,
+      "output": "./temp/js/*js",
+      "dest": "./temp/js",
+      "sources": [
+        "node_modules/jquery/dist/jquery.js",
+        "node_modules/bootstrap/dist/js/bootstrap.js"
+      ]
+    },
+    "index": {
+      "mainSources": "src/index.html",
+      "sources": [
+        "temp/styles/*",
+        "temp/js/app.js"
+      ],
+      "vendorSources": [
+        "temp/js/jquery.js",
+        "temp/js/bootstrap.js"
+      ],
+      "dest": "./temp"
+    },
+    "clean": {
+      "sources": "./temp"
+    },
+    "watch": {
+      "stylesSources": "src/styles/*.scss",
+      "scriptsSources": "src/js/*.js",
+      "indexSources": "src/index.html"
+    },
+    "connect": {
+      "sources": "./temp"
+    }
+  },
+  "production": {
+    "appStyles": {
+      "minify": true,
+      "concat": true,
+      "output": "app.min.css",
+      "dest": "./build/styles",
+      "sources": "src/styles/*.scss"
+    },
+    "vendorStyles": {
+      "minify": true,
+      "concat": true,
+      "output": "vendors.min.css",
+      "dest": "./build/styles",
+      "sources": [
+        "node_modules/bootstrap/dist/css/bootstrap-theme.css",
+        "node_modules/bootstrap/dist/css/bootstrap.css"
+      ]
+    },
+    "appScripts": {
+      "entriesSources": "src/js/app.js",
+      "sources": "app.min.js",
+      "minify": true,
+      "dest": "./build/js"
+    },
+    "vendorScripts": {
+      "minify": true,
+      "concat": true,
+      "output": "vendors.min.js",
+      "dest": "./build/js",
+      "sources": [
+        "node_modules/jquery/dist/jquery.js",
+        "node_modules/bootstrap/dist/js/bootstrap.js"
+      ]
+    },
+    "index": {
+      "mainSources": "src/index.html",
+      "sources": [
+        "build/styles/*.css",
+        "build/js/app.min.js"
+      ],
+      "vendorSources": [
+        "build/js/vendors.min.js"
+      ],
+      "dest": "./build"
+    },
+    "clean": {
+      "sources": "./build"
+    },
+    "watch": {
+      "stylesSources": "src/styles/*.scss",
+      "scriptsSources": "src/js/*.js",
+      "indexSources": "src/index.html"
+    },
+    "connect": {
+      "sources": "./build"
+    }
+  }
+}
